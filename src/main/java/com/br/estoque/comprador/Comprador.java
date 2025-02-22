@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "comprador")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Comprador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
