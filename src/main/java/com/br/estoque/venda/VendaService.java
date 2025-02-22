@@ -5,10 +5,8 @@ import com.br.estoque.comprador.CompradorRepository;
 import com.br.estoque.produto.Produto;
 import com.br.estoque.produto.ProdutoRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.Optional;
 

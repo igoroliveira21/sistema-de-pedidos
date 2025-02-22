@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "produto")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Produto {
 
     @Id
