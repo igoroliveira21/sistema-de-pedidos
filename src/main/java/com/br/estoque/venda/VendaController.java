@@ -1,6 +1,7 @@
 package com.br.estoque.venda;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +19,8 @@ public class VendaController {
     }
 
     @PostMapping
-    public ResponseEntity<Venda> registrarVenda(@RequestBody @Valid Venda vendaRequest) {
-        Venda venda = vendaService.registrarVenda(vendaRequest);
-        return ResponseEntity.ok(venda);
+    public ResponseEntity<Venda> registrarVenda(@RequestBody @Valid Venda venda) {
+        Venda novaVenda = vendaService.registrarVenda(venda);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaVenda);
     }
 }

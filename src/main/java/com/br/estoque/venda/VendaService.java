@@ -79,21 +79,35 @@ public class VendaService {
 
     @Transactional
     public Venda registrarVenda(Venda venda) {
+        if (venda.getProduto() == null || venda.getProduto().getId() == null) {
+            throw new RuntimeException("Produto não pode ser nulo");
+        }
+        if(venda.getComprador() == null || venda.getComprador().getId() == null) {
+            throw new RuntimeException("Comprador não pode ser nulo");
+        }
+
         Optional<Produto> produtoOpt = produtoRepository.findById(venda.getProduto().getId());
-        if (produtoOpt.isEmpty()) {
+        if(produtoOpt.isEmpty()) {
             throw new RuntimeException("Produto não encontrado");
         }
 
-        // Buscar o comprador no banco
         Optional<Comprador> compradorOpt = compradorRepository.findById(venda.getComprador().getId());
-        if (compradorOpt.isEmpty()) {
+        if(compradorOpt.isEmpty()) {
             throw new RuntimeException("Comprador não encontrado");
         }
 
         Produto produto = produtoOpt.get();
         Comprador comprador = compradorOpt.get();
 
-        // Atualizar os dados da venda antes de salvar
+        if(produto.getQuantidadeEstoque() < venda.getQuantidadeVendida()) {
+            throw new RuntimeException("Quantidade em estoque insuficiente!");
+        }
+
+        //Lógica para atualizar o estoque no banco
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - venda.getQuantidadeVendida());
+        produtoRepository.save(produto);
+
+        //Atualizar os dados da venda antes de salvar o registro da venda
         venda.setProduto(produto);
         venda.setComprador(comprador);
 
