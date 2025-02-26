@@ -42,4 +42,13 @@ public class ProdutoService {
 
         return repository.save(produto);
      }
+
+    public void excluirProduto(@NotNull Long id) {
+        Optional<Produto> produtoOpt = repository.findById(id);
+        if (produtoOpt.isEmpty()) {
+            throw new RuntimeException("Produto não existe em estoque");
+        }
+
+        repository.delete(produtoOpt.get());
+    }
 }

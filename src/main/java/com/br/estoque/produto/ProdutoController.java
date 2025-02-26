@@ -37,4 +37,10 @@ public class ProdutoController {
         Produto produtoAtualizado = produtoService.atualizarQuantidadePreco(produto.getId(), produto.getQuantidadeEstoque(), produto.getPreco());
         return ResponseEntity.ok(produtoAtualizado);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirProdutoEstoque(@PathVariable @NotNull Long id) {
+        produtoService.excluirProduto(id);
+        return ResponseEntity.noContent().build();
+    }
 }
